@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+
+      <div class="user-input-form">
+        <p>
+          Add any location information.
+        </p>
+
+        <form (submit)="addName()">
+          <input [(ngModel)]="newName" placeholder="Enter location name">
+          <input [(ngModel)]="newPostal" placeholder="Add postal code">
+          <button type="submit" class="submit-button">Add Location</button>
+        </form>
+      </div>
+
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">Locations (Click On A Row)</div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th></th>
+            <th>User name</th>
+            <th>Postal code</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let userLocation of nameListService.get() | async" (click)="clickRow(userLocation)">
+            <td><span *ngIf="userLocation.isSelected" class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></td>
+            <td>{{userLocation.name}}</td>
+            <td>{{userLocation.postal}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
+<div class="col-md-4">
+<div id='mapDiv' style="position:relative; width:400px; height:400px;"></div>
+</div>
+  </div>
+  </div>
