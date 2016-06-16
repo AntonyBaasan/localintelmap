@@ -42,7 +42,6 @@ export class NameListService {
     if (!this.request) {
       this.request = this.http.get('/assets/data.json')
         .map((response: Response) => response.json())
-        // .map((data: string[]) => {
         .map((data: UserLocation[]) => {
           this.request = null;
           return this.userLocations = data;

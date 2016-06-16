@@ -44,23 +44,20 @@ export class HomeComponent implements OnInit {
    * Calls Bing Map init method
    */
   ngOnInit() {
-    if (this.selectedUserLocation)
-      this.selectedUserLocation.isSelected = false;
+    this.setCurrentLocationSelected(false);
 
     //Global function used to initialize empty map
     GetMap();
   }
 
   clickRow(userLocation:UserLocation):void {
-    if (this.selectedUserLocation)
-      this.selectedUserLocation.isSelected = false;
 
-    this.selectedUserLocation = userLocation;
-    this.selectedUserLocation.isSelected = true;
+    this.setCurrentLocationSelected(false);
+    this.setCurrentLocation(userLocation);
+    this.setCurrentLocationSelected(true);
 
     this.findMapLocation(this.selectedUserLocation.postal);
 
-    // console.log('clickRow');
   }
 
   findMapLocation(postalCode:string):void {
@@ -70,6 +67,15 @@ export class HomeComponent implements OnInit {
       //Global function used to show and pin map point
       UpdateMap(x.json());
     });
+  }
+
+  setCurrentLocation(userLocation:UserLocation){
+    this.selectedUserLocation = userLocation;
+  }
+
+  setCurrentLocationSelected(selected: boolean){
+    if (this.selectedUserLocation)
+      this.selectedUserLocation.isSelected = selected;
   }
 
 }
